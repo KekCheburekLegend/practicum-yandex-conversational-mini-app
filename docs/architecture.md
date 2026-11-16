@@ -17,7 +17,7 @@ Conversational Mini-App Studio — самостоятельная веб-пла�
 | Backend | Python 3.11+, FastAPI, Pydantic | HTTP API и проверка контрактов. |
 | Хранение | PostgreSQL, SQLAlchemy, Alembic | Постоянные данные, транзакции, JSONB для версионированного состояния и миграции. |
 | Кэш | Redis | Опциональный кэш и временные данные; не источник истины для состояния и аудита. Его конкретное применение согласовать при проектировании. |
-| Frontend | Технология не выбрана | Адаптивные Chat Shell, renderer и mini-app. |
+| Frontend | React + TypeScript, Vite, CSS Modules, Flexbox и Grid, Fetch API, JSON Schema + Ajv | Адаптивные Chat Shell, renderer и mini-app. |
 | Инфраструктура | Docker, Docker Compose, GitHub Actions | Воспроизводимое локальное окружение и автоматическая проверка изменений. Подробности: [DevOps-анализ](devops.md). |
 
 Единый backend как модульный монолит — предложение для MVP: общие контракты и транзакции проще согласовать до появления необходимости в отдельных сервисах. Наличие Docker/Redis в проектном стеке не означает, что они уже настроены.
