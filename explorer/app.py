@@ -11,10 +11,18 @@ from explorer.storage import Conflict, ExplorerStore, NotFound
 from explorer.ui import make_ui_schema
 
 
-def create_app(db_path=None):
+def create_app(db_path=None, store_factory=None):
     @asynccontextmanager
     async def lifespan(app):
-        app.state.store = ExplorerStore(db_path or os.getenv('EXPLORER_DB', 'explorer.db'))
+        if store_factory is not None:
+            app.state.store = store_factory()
+        elif db_path is not None:
+            app.state.store = ExplorerStore(db_path)
+        elif os.getenv('EXPLORER_DATABASE_URL'):
+            from explorer.postgres_storage import PostgresExplorerStore
+            app.state.store = PostgresExplorerStore(os.environ['EXPLORER_DATABASE_URL'], schema=os.getenv('EXPLORER_DATABASE_SCHEMA', 'public'))
+        else:
+            app.state.store = ExplorerStore(db_path or os.getenv('EXPLORER_DB', 'explorer.db'))
         yield
 
     app = FastAPI(title='Data Explorer API', version='1.0.0', lifespan=lifespan)

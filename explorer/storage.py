@@ -88,8 +88,7 @@ class ExplorerStore:
 
     def save(self, session_id, expected_version, config):
         with self.connect() as db:
-            db.execute('BEGIN IMMEDIATE')
-            session = db.execute('SELECT dataset, current_version, algorithm_version, state_schema_version FROM explorer_sessions WHERE id=?', (session_id,)).fetchone()
+            session = self.lock_session(db, session_id)
             if not session:
                 raise NotFound()
             if session[1] != expected_version:
@@ -101,3 +100,7 @@ class ExplorerStore:
             db.execute('INSERT INTO explorer_states VALUES (?, ?, ?, ?, ?)', (session_id, version, _json(config.model_dump()), _json(aggregates), self.now()))
             db.execute('UPDATE explorer_sessions SET current_version=? WHERE id=?', (version, session_id))
         return self.get(session_id, version)
+
+    def lock_session(self, db, session_id):
+        db.execute('BEGIN IMMEDIATE')
+        return db.execute('SELECT dataset, current_version, algorithm_version, state_schema_version FROM explorer_sessions WHERE id=?', (session_id,)).fetchone()
