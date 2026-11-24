@@ -28,3 +28,7 @@ Chat Shell открывает Research Board, Project Planner и Data Explorer �
 ### DevOps
 * **CI/CD**
 * **Docker**
+
+## Data Explorer API
+
+Серверный модуль и инструкция по запуску, формату файлов, API и ограничениям интеграции: [docs/data-explorer-api.md](docs/data-explorer-api.md).
