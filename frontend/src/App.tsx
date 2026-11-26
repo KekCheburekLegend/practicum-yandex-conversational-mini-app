@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 import styles from './App.module.css';
+import { SchemaPlayground } from './renderer/SchemaRenderer';
+import { demoSchema } from './renderer/demo';
 
 const applications = [
   { id: 'research', name: 'Research Board', description: 'Утверждения, источники и доказательства' },
@@ -143,9 +145,7 @@ export function App() {
           <section className={styles.appPanel} aria-labelledby="app-title">
             <div className={styles.panelHeading}><span>РАБОЧЕЕ ПРОСТРАНСТВО</span><span>◈</span></div>
             <h2 id="app-title">{application.name}</h2><p>{application.description}</p>
-            <div className={styles.placeholder}><span>◈</span><h3>Место для mini-app</h3>
-              <p>Здесь появится интерактивный интерфейс приложения после подключения runtime и Schema Renderer.</p>
-            </div>
+            <SchemaPlayground key={activeApp} schema={demoSchema(activeApp, application.name)} />
           </section>
         </div>}
         <p className={styles.disclaimer}>Самостоятельная платформа. Обязательная или официальная интеграция с ChatGPT/OpenAI отсутствует.</p>
