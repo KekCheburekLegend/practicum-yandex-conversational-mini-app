@@ -1,0 +1,20 @@
+{
+  "title": "Деревья и температура в городе",
+  "claims": [
+    {"id": "summer-heat", "text": "Деревья снижают дневную температуру на изученных улицах."},
+    {"id": "night-heat", "text": "Деревья снижают ночную температуру на всех изученных улицах."},
+    {"id": "maintenance", "text": "Содержание новых деревьев снизит расходы города."}
+  ],
+  "sources": [
+    {"id": "street-study", "title": "Учебный отчёт о температуре на улицах", "url": "https://example.org/daytime"},
+    {"id": "night-survey", "title": "Учебные измерения ночной температуры", "url": "https://example.org/nighttime"}
+  ],
+  "evidence": [
+    {"id": "day-results", "source_id": "street-study", "excerpt": "На изученных улицах с деревьями было прохладнее днём.", "locator": "Раздел 2"},
+    {"id": "night-results", "source_id": "night-survey", "excerpt": "На двух улицах ночная температура не отличалась от контрольной.", "locator": "Таблица 3"}
+  ],
+  "links": [
+    {"id": "day-support", "from_id": "day-results", "to_claim_id": "summer-heat", "relation": "supports"},
+    {"id": "night-contradiction", "from_id": "night-results", "to_claim_id": "night-heat", "relation": "contradicts"}
+  ]
+}
